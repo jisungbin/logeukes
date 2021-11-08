@@ -28,8 +28,11 @@ logeukes { "HI" }
 - enum class LoggerType { W, V, D, E, I }
 ```
 
-# Download
-TODO
+# Download [![](https://img.shields.io/maven-central/v/io.github.jisungbin/logeukes)](https://search.maven.org/artifact/io.github.jisungbin/logeukes)
+
+```groovy
+implementation "io.github.jisungbin:logeukes:${version}"
+```
 
 ---
 
