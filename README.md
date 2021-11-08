@@ -27,3 +27,10 @@ logeukes { "HI" }
 - logeukes(tag: String = getClassName(), type: LoggerType = LoggerType.D, content: () -> Any?)
 - enum class LoggerType { W, V, D, E, I }
 ```
+
+# Download
+TODO
+
+---
+
+# Happy Coding :)
