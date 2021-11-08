@@ -3,4 +3,5 @@
 /.idea
 /build
 /app/build
+/logeukes/build
 local.properties

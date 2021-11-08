@@ -35,7 +35,6 @@ internal fun log(tag: String, type: LoggerType, content: String) {
             LoggerType.W -> Log.w(tag, content)
             LoggerType.V -> Log.v(tag, content)
         }
-        if (Logeukes.usePrintln) println(content)
     }
 }
 

@@ -3,6 +3,7 @@
     package="io.github.jisungbin">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@drawable/ic_launcher_background"

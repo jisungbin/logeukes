@@ -11,10 +11,8 @@ package io.github.jisungbin.logeukes
 
 object Logeukes {
     internal var setup = false
-    internal var usePrintln = false
 
-    fun setup(usePrintln: Boolean = false) {
+    fun setup() {
         setup = true
-        this.usePrintln = usePrintln
     }
 }
