@@ -26,8 +26,7 @@ inline fun Any.logeukes(
 
 @PublishedApi
 internal fun log(tag: String, type: LoggerType, content: String) {
-    if (!Logeukes.setup) return
-    else {
+    if (Logeukes.setup) {
         when (type) {
             LoggerType.D -> Log.d(tag, content)
             LoggerType.E -> Log.e(tag, content)
