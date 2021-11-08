@@ -15,14 +15,17 @@ enum class LoggerType {
     W, V, D, E, I
 }
 
-private val TAG get() = "test"
-
 @JvmOverloads
-fun logeukes(tag: String = TAG, type: LoggerType = LoggerType.D, content: () -> Any?) {
+inline fun Any.logeukes(
+    tag: String = getClassName(),
+    type: LoggerType = LoggerType.D,
+    content: () -> Any?
+) {
     log(tag, type, content().getLogContent())
 }
 
-private fun log(tag: String, type: LoggerType, content: String) {
+@PublishedApi
+internal fun log(tag: String, type: LoggerType, content: String) {
     if (!Logeukes.setup) return
     else {
         when (type) {
@@ -36,38 +39,54 @@ private fun log(tag: String, type: LoggerType, content: String) {
     }
 }
 
-private fun Any?.getLogContent(): String {
-    var data = ""
+@PublishedApi
+internal fun Any?.getLogContent(): String {
+    val dataBuilder = StringBuilder()
     when (this) {
         is Iterable<*> -> {
             for ((index, element) in withIndex()) {
-                data += "\n[$index] $element"
+                dataBuilder.append("\n[$index] $element")
             }
         }
         is Map<*, *> -> {
             for ((index, element) in asIterable().withIndex()) {
-                data += "\n[$index] ${element.key} - ${element.value}"
+                dataBuilder.append("\n[$index] ${element.key} - ${element.value}")
             }
         }
         is Array<*> -> {
             for ((index, element) in asIterable().withIndex()) {
-                data += "\n[$index] $element"
+                dataBuilder.append("\n[$index] $element")
             }
         }
-        else -> data = toString()
+        else -> dataBuilder.append(toString())
     }
-    var logData = ""
-    val splitData = data.replaceFirst("\n", "").split("\n")
+    val logDataBuilder = StringBuilder()
+    val splitData = dataBuilder.toString().replaceFirst("\n", "").split("\n")
     for ((index, element) in splitData.withIndex()) {
-        var value = ""
-        value += "\n│${"\t".repeat(5)}$element"
-        if (index == splitData.size - 1) {
-            value += "\n${"─".repeat(50)}"
-            if (element.length >= 30) {
-                value += "─".repeat(element.length - 20)
+        val value = StringBuilder().apply {
+            append("\n│${"\t".repeat(5)}$element")
+            if (index == splitData.size - 1) {
+                append("\n${"─".repeat(50)}")
+                if (element.length >= 30) {
+                    append("─".repeat(element.length - 20))
+                }
             }
         }
-        logData += value
+        logDataBuilder.append(value.toString())
     }
-    return " $logData"
+    return " $logDataBuilder"
+}
+
+// Thanks: https://github.com/square/logcat/blob/main/logcat/src/main/java/logcat/Logcat.kt#L86
+@PublishedApi
+internal fun Any.getClassName(): String {
+    val javaClass = this::class.java
+    val fullClassName = javaClass.name
+    val outerClassName = fullClassName.substringBefore('$')
+    val simplerOuterClassName = outerClassName.substringAfterLast('.')
+    return if (simplerOuterClassName.isEmpty()) {
+        fullClassName
+    } else {
+        simplerOuterClassName.removeSuffix("Kt")
+    }
 }
