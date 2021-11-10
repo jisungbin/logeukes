@@ -9,7 +9,19 @@
 
 package io.github.jisungbin.logeukes
 
+import android.os.Build
 import android.util.Log
+import java.util.regex.Pattern
+
+private const val MAX_LOG_LENGTH = 4000
+private const val MAX_TAG_LENGTH = 23
+private val ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$")
+
+@PublishedApi
+internal inline val calcTag
+    get() = Throwable().stackTrace
+        .first { it.className != Logeukes::class.java.name }
+        .let(::createStackElementTag)
 
 enum class LoggerType {
     W, V, D, E, I
@@ -18,6 +30,15 @@ enum class LoggerType {
 @JvmOverloads
 inline fun Any.logeukes(
     tag: String = getClassName(),
+    type: LoggerType = LoggerType.D,
+    content: () -> Any?
+) {
+    log(tag, type, content().getLogContent())
+}
+
+@JvmOverloads
+inline fun logeukes(
+    tag: String = calcTag,
     type: LoggerType = LoggerType.D,
     content: () -> Any?
 ) {
@@ -86,5 +107,20 @@ internal fun Any.getClassName(): String {
         fullClassName
     } else {
         simplerOuterClassName.removeSuffix("Kt")
+    }
+}
+
+// Thanks: https://github.com/JakeWharton/timber/blob/trunk/timber/src/main/java/timber/log/Timber.kt#L204
+@PublishedApi
+internal fun createStackElementTag(element: StackTraceElement): String {
+    var tag = element.className.substringAfterLast('.')
+    val m = ANONYMOUS_CLASS.matcher(tag)
+    if (m.find()) {
+        tag = m.replaceAll("")
+    }
+    return if (tag.length <= MAX_TAG_LENGTH || Build.VERSION.SDK_INT >= 26) {
+        tag
+    } else {
+        tag.substring(0, MAX_TAG_LENGTH)
     }
 }
