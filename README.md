@@ -1,12 +1,10 @@
 # Logeukes
 
-android logcat
+Powerful Android logcat.
+
+All types are supported, and tags are automatically created with class names when tags are omitted.
 
 ---
-
-# Preview
-
-![](https://raw.githubusercontent.com/sungbin5304/PrettyLogger/master/images/PrettyLogger.png)
 
 # Usage
 
