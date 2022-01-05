@@ -6,6 +6,10 @@ Powerful Android logcat.
 
 ---
 
+# Preview
+
+![](https://raw.githubusercontent.com/sungbin5304/PrettyLogger/master/images/PrettyLogger.png)
+
 # Usage
 
 ```kotlin
