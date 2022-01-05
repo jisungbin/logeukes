@@ -2,7 +2,7 @@
 
 Powerful Android logcat.
 
-All types are supported, and tags are automatically created with class names when tags are omitted.
+**All types are supported**, and tags are automatically created with class names when tags are omitted.
 
 ---
 
