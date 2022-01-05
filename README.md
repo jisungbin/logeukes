@@ -12,7 +12,7 @@ All types are supported, and tags are automatically created with class names whe
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) { // Enable logging only in debug
             Logeukes.setup()
         }
     }
