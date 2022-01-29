@@ -22,7 +22,7 @@ implementation "land.sungbin:logeukes:${version}"
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) { // Enable logging only in debug
+        if (BuildConfig.DEBUG) { // Enable logging only in debug mode
             Logeukes.setup()
         }
     }
