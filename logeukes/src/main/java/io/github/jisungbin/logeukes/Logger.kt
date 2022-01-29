@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021. Sungbin Ji. All rights reserved. 
+ * Copyright (c) 2021. Sungbin Ji. All rights reserved.
  *
  * Logeukes license is under the MIT license.
  * SEE LICENSE : https://github.com/jisungbin/logeukes/blob/master/LICENSE
@@ -31,7 +31,7 @@ enum class LoggerType {
 inline fun Any.logeukes(
     tag: String = getClassName(),
     type: LoggerType = LoggerType.D,
-    content: () -> Any?
+    content: () -> Any?,
 ) {
     log(tag, type, content().getLogContent())
 }
@@ -40,7 +40,7 @@ inline fun Any.logeukes(
 inline fun logeukes(
     tag: String = calcTag,
     type: LoggerType = LoggerType.D,
-    content: () -> Any?
+    content: () -> Any?,
 ) {
     log(tag, type, content().getLogContent())
 }

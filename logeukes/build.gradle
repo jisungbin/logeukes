@@ -4,8 +4,8 @@ plugins {
 }
 
 ext {
-    PUBLISH_GROUP_ID = 'io.github.jisungbin'
-    PUBLISH_VERSION = '1.0.1'
+    PUBLISH_GROUP_ID = 'land.sungbin'
+    PUBLISH_VERSION = '1.0.0'
     PUBLISH_ARTIFACT_ID = 'logeukes'
     PUBLISH_DESCRIPTION = 'android logcat'
     PUBLISH_URL = 'https://github.com/jisungbin/logeukes'
@@ -25,10 +25,8 @@ android {
     compileSdk 31
 
     defaultConfig {
-        minSdk 23
+        minSdk 1
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
     }
 
     compileOptions {
